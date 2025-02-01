@@ -8,7 +8,8 @@ public class Duck {
             + "| |  | | | | |/ __| |/ /   _\n"
             + "| |__| | |_| | (__|   <  <(.)___\n"
             + "|_____/ \\__,_|\\___|_|\\_\\  (____/\n";
-    static private ArrayList<String> list = new ArrayList<String>();
+    static private ArrayList<Task> taskList = new ArrayList<Task>();
+    static private int taskCounter = 0;
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -34,6 +35,20 @@ public class Duck {
 
         if (input.equalsIgnoreCase("list")) {
             printList();
+        } else if (input.contains("unmark ")) {
+            String[] splitInput = input.split(" ");
+            try {
+                unmarkAsDone(Integer.parseInt(splitInput[1]));
+            } catch (NumberFormatException e) {
+                System.out.println(splitInput[1] + " is not a number");
+            }
+        } else if (input.contains("mark ")) {
+            String[] splitInput = input.split(" ");
+            try {
+                markAsDone(Integer.parseInt(splitInput[1]));
+            } catch (NumberFormatException e) {
+                System.out.println(splitInput[1] + " is not a number");
+            }
         } else {
             addToList(input);
         }
@@ -46,14 +61,39 @@ public class Duck {
     }
 
     private static void addToList(String input) {
-        list.add(input);
+        Task newTask = new Task(input);
+        taskList.add(newTask);
         System.out.println("added: " + input);
+        taskCounter++;
+        System.out.println(divider);
+    }
+
+    private static void markAsDone(int taskId) {
+        if (taskId > taskCounter) {
+            System.out.println("Task does not exist :(");
+            System.out.println(divider);
+            return;
+        }
+        taskList.get(taskId - 1).markAsCompleted();
+        System.out.println("Nice! I've marked this task as done:\n  [X] " + taskList.get(taskId - 1).getTitle());
+        System.out.println(divider);
+    }
+
+    private static void unmarkAsDone(int taskId) {
+        if (taskId > taskCounter) {
+            System.out.println("Task does not exist :(");
+            System.out.printf(divider);
+            return;
+        }
+        taskList.get(taskId - 1).unmarkAsCompleted();
+        System.out.println("Ok, I've marked this task as not done yet:\n  [ ] " + taskList.get(taskId - 1).getTitle());
         System.out.println(divider);
     }
 
     private static void printList() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". [" + (taskList.get(i).isCompleted() ? "X" : " ") + "] " + taskList.get(i).getTitle());
         }
         System.out.println(divider);
     }
