@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duck {
     static String divider = "____________________________________________________________";
@@ -7,6 +8,7 @@ public class Duck {
             + "| |  | | | | |/ __| |/ /   _\n"
             + "| |__| | |_| | (__|   <  <(.)___\n"
             + "|_____/ \\__,_|\\___|_|\\_\\  (____/\n";
+    static private ArrayList<String> list = new ArrayList<String>();
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -30,7 +32,29 @@ public class Duck {
             exitProgram();
         }
 
+        if (input.equalsIgnoreCase("list")) {
+            printList();
+        } else {
+            addToList(input);
+        }
+//        echoText(input);
+    }
+
+    private static void echoText(String input) {
         printBubbleSaying(input);
+        System.out.println(divider);
+    }
+
+    private static void addToList(String input) {
+        list.add(input);
+        System.out.println("added: " + input);
+        System.out.println(divider);
+    }
+
+    private static void printList() {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
+        }
         System.out.println(divider);
     }
 
@@ -93,7 +117,7 @@ public class Duck {
     }
 
     private static void exitProgram() {
-        System.out.println("quack :(");
+        System.out.println("bye bye :(");
         System.out.println(divider);
         System.exit(0);
     }
