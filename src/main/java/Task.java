@@ -1,9 +1,11 @@
-public class Task {
-    private String title;
-    private boolean completed = false;
+public abstract class Task {
+    private final String title;
+    private boolean complete = false;
+
+    public abstract void printTask();
 
     public Task() {
-        this("null");
+        this("Untitled");
     }
 
     public Task(String title) {
@@ -13,15 +15,16 @@ public class Task {
     public String getTitle() {
         return title;
     }
+
     public boolean isCompleted() {
-        return completed;
+        return complete;
     }
 
-    public void markAsCompleted() {
-        this.completed = true;
+    public void markAsComplete() {
+        this.complete = true;
     }
 
-    public void unmarkAsCompleted() {
-        this.completed = false;
+    public void markAsUncomplete() {
+        this.complete = false;
     }
 }
