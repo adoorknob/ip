@@ -25,7 +25,8 @@ public class Event extends Task {
 
     public void printTask() {
         System.out.println("  [E][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle()
-                + "(from: " + this.getFromDateTime() + ", to: " + this.getToDateTime()
-                + " to: " + this.getToDateTime() + ")");
+                + "(from: " + this.getFromDateTime()
+                + ", to: " + this.getToDateTime()
+                + ")");
     }
 }
