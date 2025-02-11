@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.function.Function;
 
 
 public class Duck {
@@ -35,10 +34,10 @@ public class Duck {
     static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done:";
     static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet:";
 
-    static final String ERROR_NO_MATCHING_TYPES = "No matching types, please try again :/";
-    static final String ERROR_INVALID_INPUT = "Invalid input, please try again :0";
+    static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
+    static final String ERROR_INVALID_COMMAND = "huh :0";
 
-    static final Map<String, Function<String, Task>> addTaskCommandMap = Map.ofEntries(
+    static final Map<String, ThrowingFunction<String, Task>> addTaskCommandMap = Map.ofEntries(
             Map.entry(TASK_NAME_TODO, Duck::addTodo),
             Map.entry(TASK_NAME_DEADLINE, Duck::addDeadline),
             Map.entry(TASK_NAME_EVENT, Duck::addEvent)
@@ -101,34 +100,48 @@ public class Duck {
                 addToList(input);
             }
             }
-        } catch (Exception e) {
-            System.out.println(ERROR_INVALID_INPUT);
+        } catch (InvalidCommandException e) {
+            System.out.println(ERROR_INVALID_COMMAND);
             System.out.println(DIVIDER);
         }
     }
 
-    private static void addToList(String input) {
+    private static void addToList(String input) throws InvalidCommandException {
         String[] splitInput = input.split(" ");
         String command = splitInput[0];
         String inputWithoutCommand = String.join(" ", Arrays.asList(splitInput).subList(1, splitInput.length));
         Task newTask;
 
         if (addTaskCommandMap.containsKey(command)) {
-            newTask = addTaskCommandMap.get(command).apply(inputWithoutCommand);
+            try {
+                newTask = addTaskCommandMap.get(command).apply(inputWithoutCommand);
+            } catch (EmptyTodoException e) {
+                printEmptyTodoError();
+                return;
+            } catch (Exception e) {
+                System.out.println("Error adding task: " + e.getMessage());
+                throw new InvalidCommandException();
+            }
         } else {
-            printNoMatchingTypesError();
-            return;
+            throw new InvalidCommandException();
         }
 
         taskList.add(newTask);
         System.out.println(MESSAGE_ACKNOWLEDGE_TASK_ADDED);
         newTask.printTask();
         taskCounter++;
+        printTaskCounter();
+    }
+
+    private static void printTaskCounter() {
         System.out.println("Now you have " + taskCounter + " tasks added to the list.");
         System.out.println(DIVIDER);
     }
 
-    private static Task addTodo(String input) {
+    private static Task addTodo(String input) throws EmptyTodoException {
+        if (input.isEmpty()) {
+            throw new EmptyTodoException();
+        }
         return new Todo(input);
     }
 
@@ -187,8 +200,8 @@ public class Duck {
         System.out.println(DIVIDER);
     }
 
-    private static void printNoMatchingTypesError() {
-        System.out.println(ERROR_NO_MATCHING_TYPES);
+    private static void printEmptyTodoError() {
+        System.out.println(ERROR_EMPTY_TODO);
         System.out.println(DIVIDER);
     }
 
