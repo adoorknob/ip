@@ -1,3 +1,5 @@
+package duke;
+
 public class Echo {
     static String DIVIDER = "____________________________________________________________";
 
