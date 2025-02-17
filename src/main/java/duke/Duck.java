@@ -27,6 +27,7 @@ public class Duck {
     static final String COMMAND_LIST = "list";
     static final String COMMAND_MARK = "mark";
     static final String COMMAND_UNMARK = "unmark";
+    static final String COMMAND_DELETE= "delete";
     static final ArrayList<String> COMMAND_EXIT_LIST = new ArrayList<String>(Arrays.asList(
             "bye",
             "exit",
@@ -42,6 +43,7 @@ public class Duck {
     static final String MESSAGE_ACKNOWLEDGE_TASK_ADDED = "Got it. I've added this task:";
     static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done:";
     static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet:";
+    static final String MESSAGE_ACKNOWLEDGE_DELETE_COMMAND = "I've deleted this task:";
 
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
     static final String ERROR_INVALID_COMMAND = "huh :0";
@@ -105,6 +107,10 @@ public class Duck {
                 markAsUndone(Integer.parseInt(splitInput[1]));
                 break;
             }
+            case COMMAND_DELETE: {
+                deleteFromList(Integer.parseInt(splitInput[1]));
+                break;
+            }
             default: {
                 addToList(input);
             }
@@ -128,7 +134,7 @@ public class Duck {
                 printEmptyTodoError();
                 return;
             } catch (Exception e) {
-                System.out.println("Error adding task: " + e.getMessage());
+                System.out.println("Error adding task: " + input);
                 throw new InvalidCommandException();
             }
         } else {
@@ -136,14 +142,27 @@ public class Duck {
         }
 
         taskList.add(newTask);
-        System.out.println(MESSAGE_ACKNOWLEDGE_TASK_ADDED);
+        System.out.print(MESSAGE_ACKNOWLEDGE_TASK_ADDED + "\n  ");
         newTask.printTask();
         taskCounter++;
         printTaskCounter();
     }
 
+    private static void deleteFromList(int taskId) throws InvalidCommandException {
+        if (taskId > taskCounter) {
+            System.out.println("Task does not exist :(");
+            System.out.println(DIVIDER);
+            return;
+        }
+        System.out.print(MESSAGE_ACKNOWLEDGE_DELETE_COMMAND + "\n  ");
+        taskList.get(taskId-1).printTask();
+        taskList.remove(taskId - 1);
+        taskCounter--;
+        printTaskCounter();
+    }
+
     private static void printTaskCounter() {
-        System.out.println("Now you have " + taskCounter + " tasks added to the list.");
+        System.out.println("Now you have " + taskCounter + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
@@ -183,7 +202,7 @@ public class Duck {
             return;
         }
         taskList.get(taskId - 1).markAsComplete();
-        System.out.println(MESSAGE_ACKNOWLEDGE_MARK_COMMAND);
+        System.out.print(MESSAGE_ACKNOWLEDGE_MARK_COMMAND + "\n  ");
         taskList.get(taskId-1).printTask();
         System.out.println(DIVIDER);
     }
@@ -194,14 +213,14 @@ public class Duck {
             System.out.printf(DIVIDER);
             return;
         }
-        taskList.get(taskId - 1).markAsUncomplete();
+        taskList.get(taskId - 1).markAsIncomplete();
         System.out.println(MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND);
         taskList.get(taskId-1).printTask();
         System.out.println(DIVIDER);
     }
 
     private static void printList() {
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print((i + 1) + ". ");
             taskList.get(i).printTask();

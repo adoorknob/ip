@@ -11,6 +11,6 @@ public class Todo extends Task {
     }
 
     public void printTask() {
-        System.out.println("  [T][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle());
+        System.out.println("[T][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle());
     }
 }
