@@ -6,6 +6,8 @@ public abstract class Task {
 
     public abstract void printTask();
 
+    public abstract String toString();
+
     public Task() {
         this("Untitled");
     }

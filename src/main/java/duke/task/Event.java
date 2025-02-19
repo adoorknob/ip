@@ -29,4 +29,10 @@ public class Event extends Task {
                 + ", to: " + this.getToDateTime()
                 + ")");
     }
+    public String toString() {
+        return "E | " + (this.isCompleted() ? "1" : "0")
+                + " | " + this.getTitle()
+                + " | from: " + this.getFromDateTime()
+                + " | to: " + this.getToDateTime();
+    }
 }

@@ -19,4 +19,10 @@ public class Deadline extends Task {
     public void printTask() {
         System.out.println("  [D][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle() + "(by: " + this.getByDate() + ")");
     }
+
+    public String toString() {
+        return "D | " + (this.isCompleted() ? "1" : "0")
+                + " | " + this.getTitle()
+                + " | by: " + this.getByDate();
+    }
 }
