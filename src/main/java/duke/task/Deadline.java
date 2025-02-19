@@ -17,6 +17,6 @@ public class Deadline extends Task {
     }
 
     public void printTask() {
-        System.out.println("  [D][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle() + "(by: " + this.getByDate() + ")");
+        System.out.println("[D][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle() + "(by: " + this.getByDate() + ")");
     }
 }

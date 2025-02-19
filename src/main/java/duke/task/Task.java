@@ -26,7 +26,7 @@ public abstract class Task {
         this.complete = true;
     }
 
-    public void markAsUncomplete() {
+    public void markAsIncomplete() {
         this.complete = false;
     }
 }
