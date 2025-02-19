@@ -7,10 +7,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.IOException;
 import java.util.*;
+import java.io.FileWriter;
 
 
 public class Duck {
+    static final String outputFilePath = "src/main/java/duke/data/duckOutput.txt";
+    static String outputList = "";
+
     static final String DIVIDER = "____________________________________________________________";
     static final String LOGO = """
              _____             _
@@ -62,6 +67,10 @@ public class Duck {
         while (true) {
             try {
                 processUserInput();
+                updateFile();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                break;
             } catch (Exception e) {
                 break;
             }
@@ -226,6 +235,20 @@ public class Duck {
             taskList.get(i).printTask();
         }
         System.out.println(DIVIDER);
+    }
+
+    private static void updateFile() throws IOException {
+        FileWriter fw = new FileWriter(outputFilePath);
+        updateOutputList();
+        fw.write(outputList);
+        fw.close();
+    }
+
+    private static void updateOutputList() {
+        outputList = "";
+        for (Task task : taskList) {
+            outputList += task.toString() + "\n";
+        }
     }
 
     private static void printEmptyTodoError() {
