@@ -10,6 +10,8 @@ import duke.task.Todo;
 import java.io.IOException;
 import java.util.*;
 import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class Duck {
@@ -64,6 +66,12 @@ public class Duck {
 
     public static void main(String[] args) {
         printWelcomeMessage();
+        try {
+            loadOldFile();
+        } catch (IOException e) {
+            System.out.println("Unable to load old file. Abort.");
+            return;
+        }
         while (true) {
             try {
                 processUserInput();
@@ -179,7 +187,7 @@ public class Duck {
         if (input.isEmpty()) {
             throw new EmptyTodoException();
         }
-        return new Todo(input);
+        return new Todo(input.trim());
     }
 
     private static Task addDeadline(String input) {
@@ -187,8 +195,8 @@ public class Duck {
         if (byDateIndex == -1) {
             throw new NumberFormatException();
         }
-        String byDate = input.substring(byDateIndex + BY_COMMAND_BUFFER);
-        String title = input.substring(0, byDateIndex);
+        String byDate = input.substring(byDateIndex + BY_COMMAND_BUFFER).trim();
+        String title = input.substring(0, byDateIndex).trim();
         return new Deadline(title, byDate);
     }
 
@@ -198,9 +206,9 @@ public class Duck {
         if (fromDateTimeIndex == -1 || toDateTimeIndex == -1) {
             throw new NumberFormatException();
         }
-        String fromDateTime = input.substring(fromDateTimeIndex + FROM_COMMAND_BUFFER, toDateTimeIndex);
-        String toDateTime = input.substring(toDateTimeIndex + TO_COMMAND_BUFFER);
-        String title = input.substring(0, fromDateTimeIndex);
+        String fromDateTime = input.substring(fromDateTimeIndex + FROM_COMMAND_BUFFER, toDateTimeIndex).trim();
+        String toDateTime = input.substring(toDateTimeIndex + TO_COMMAND_BUFFER).trim();
+        String title = input.substring(0, fromDateTimeIndex).trim();
         return new Event(title, fromDateTime, toDateTime);
     }
 
@@ -235,6 +243,72 @@ public class Duck {
             taskList.get(i).printTask();
         }
         System.out.println(DIVIDER);
+    }
+
+    private static void loadOldFile() throws FileNotFoundException {
+        File f = new File(outputFilePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            outputList += currentLine + "\n";
+            parseOldFileEntry(currentLine);
+        }
+        System.out.println("loaded old file");
+        System.out.println(DIVIDER);
+    }
+
+    private static void parseOldFileEntry(String line) throws FileNotFoundException {
+        String[] splitInput = line.split("\\|");
+        Task newTask;
+        try {
+            switch (splitInput[0].trim()) {
+            case "T": {
+                newTask = addTodoFromOldFile(line);
+                break;
+            }
+            case "D": {
+                newTask = addDeadlineFromOldFile(line);
+                break;
+            }
+            case "E": {
+                newTask = addEventFromOldFile(line);
+                break;
+            }
+            default: {
+                throw new InvalidCommandException();
+            }
+            }
+        } catch (Exception e) {
+            System.out.println("Error parsing old file: " + line);
+            throw new FileNotFoundException();
+        }
+
+        taskList.add(newTask);
+        taskCounter++;
+    }
+
+    private static Task addTodoFromOldFile(String oldFileEntry) {
+        String[] splitInput = oldFileEntry.split("\\|");
+        String title = splitInput[2].trim();
+        return new Todo(title);
+    }
+
+    private static Task addDeadlineFromOldFile(String oldFileEntry) {
+        String[] splitInput = oldFileEntry.split("\\|");
+        String title = splitInput[2].trim();
+        int byDateIndex = splitInput[3].indexOf("by");
+        String byDate = splitInput[3].substring(byDateIndex + BY_COMMAND_BUFFER).trim();
+        return new Deadline(title, byDate);
+    }
+
+    private static Task addEventFromOldFile(String oldFileEntry) {
+        String[] splitInput = oldFileEntry.split("\\|");
+        String title = splitInput[2].trim();
+        int fromDateTimeIndex = splitInput[3].indexOf("from");
+        String fromDateTime = splitInput[3].substring(fromDateTimeIndex + FROM_COMMAND_BUFFER).trim();
+        int toDateTimeIndex = splitInput[4].indexOf("to");
+        String toDateTime = splitInput[4].substring(toDateTimeIndex + TO_COMMAND_BUFFER).trim();
+        return new Event(title, fromDateTime, toDateTime);
     }
 
     private static void updateFile() throws IOException {
