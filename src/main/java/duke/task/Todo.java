@@ -10,11 +10,11 @@ public class Todo extends Task {
         super(title);
     }
 
-    public void printTask() {
-        System.out.println("[T][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle());
+    public String toTaskString() {
+        return "[T][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle();
     }
 
-    public String toString() {
+    public String toFileString() {
         return "T | " + (this.isCompleted() ? "1" : "0") + " | " + this.getTitle();
     }
 }

@@ -1,1 +1,4 @@
-E | 0 | Teng Wai attend CS2113 lecture Friday 21 Feb 2025 | from: 4 | to: 6pm
+T | 0 | help
+T | 1 | this
+T | 0 | this
+E | 0 | this lecture | from: start | to: end

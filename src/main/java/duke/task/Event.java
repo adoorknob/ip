@@ -23,13 +23,13 @@ public class Event extends Task {
         return toDateTime;
     }
 
-    public void printTask() {
-        System.out.println("[E][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle()
+    public String toTaskString() {
+        return "[E][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle()
                 + " (from: " + this.getFromDateTime()
                 + ", to: " + this.getToDateTime()
-                + ")");
+                + ")";
     }
-    public String toString() {
+    public String toFileString() {
         return "E | " + (this.isCompleted() ? "1" : "0")
                 + " | " + this.getTitle()
                 + " | from: " + this.getFromDateTime()

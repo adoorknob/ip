@@ -16,12 +16,12 @@ public class Deadline extends Task {
         return byDate;
     }
 
-    public void printTask() {
-        System.out.println("[D][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle()
-                + " (by: " + this.getByDate() + ")");
+    public String toTaskString() {
+        return "[D][" + (this.isCompleted() ? "X" : " ") + "] " + this.getTitle()
+                + " (by: " + this.getByDate() + ")";
     }
 
-    public String toString() {
+    public String toFileString() {
         return "D | " + (this.isCompleted() ? "1" : "0")
                 + " | " + this.getTitle()
                 + " | by: " + this.getByDate();

@@ -47,13 +47,13 @@ public class Duck {
 
     static final String MESSAGE_WELCOME = "Hello! I'm \n" + LOGO + "\n What can I do for you?";
     static final String MESSAGE_EXIT = "bye bye :(";
-    static final String MESSAGE_ACKNOWLEDGE_TASK_ADDED = "Got it. I've added this task:";
-    static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done:";
-    static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet:";
-    static final String MESSAGE_ACKNOWLEDGE_DELETE_COMMAND = "I've deleted this task:";
+    static final String MESSAGE_ACKNOWLEDGE_TASK_ADDED = "Got it. I've added this task: ";
+    static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done: ";
+    static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet: ";
+    static final String MESSAGE_ACKNOWLEDGE_DELETE_COMMAND = "I've deleted this task: ";
 
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
-    static final String ERROR_INVALID_COMMAND = "huh :0";
+    static final String ERROR_INVALID_COMMAND = "huh :V";
 
     static final Map<String, ThrowingFunction<String, Task>> addTaskCommandMap = Map.ofEntries(
             Map.entry(TASK_NAME_TODO, Duck::addTodo),
@@ -65,13 +65,13 @@ public class Duck {
     static private int taskCounter = 0;
 
     public static void main(String[] args) {
-        printWelcomeMessage();
         try {
             loadOldFile();
         } catch (IOException e) {
             System.out.println("Unable to load old file. Abort.");
             return;
         }
+        printWelcomeMessage();
         while (true) {
             try {
                 processUserInput();
@@ -133,8 +133,7 @@ public class Duck {
             }
             }
         } catch (InvalidCommandException e) {
-            System.out.println(ERROR_INVALID_COMMAND);
-            System.out.println(DIVIDER);
+            printMessage(ERROR_INVALID_COMMAND);
         }
     }
 
@@ -151,7 +150,7 @@ public class Duck {
                 printEmptyTodoError();
                 return;
             } catch (Exception e) {
-                System.out.println("Error adding task: " + input);
+                printMessage("Error adding task: " + input);
                 throw new InvalidCommandException();
             }
         } else {
@@ -159,28 +158,24 @@ public class Duck {
         }
 
         taskList.add(newTask);
-        System.out.print(MESSAGE_ACKNOWLEDGE_TASK_ADDED + "\n  ");
-        newTask.printTask();
+        printMessage(MESSAGE_ACKNOWLEDGE_TASK_ADDED + newTask.toTaskString());
         taskCounter++;
         printTaskCounter();
     }
 
     private static void deleteFromList(int taskId) throws InvalidCommandException {
         if (taskId > taskCounter) {
-            System.out.println("Task does not exist :(");
-            System.out.println(DIVIDER);
+            printMessage("Task does not exist :(");
             return;
         }
-        System.out.print(MESSAGE_ACKNOWLEDGE_DELETE_COMMAND + "\n  ");
-        taskList.get(taskId-1).printTask();
+        printMessage(MESSAGE_ACKNOWLEDGE_DELETE_COMMAND + taskList.get(taskId-1).toTaskString());
         taskList.remove(taskId - 1);
         taskCounter--;
         printTaskCounter();
     }
 
     private static void printTaskCounter() {
-        System.out.println("Now you have " + taskCounter + " tasks in the list.");
-        System.out.println(DIVIDER);
+        printMessage("Now you have " + taskCounter + " tasks in the list.");
     }
 
     private static Task addTodo(String input) throws EmptyTodoException {
@@ -214,14 +209,11 @@ public class Duck {
 
     private static void markAsDone(int taskId) {
         if (taskId > taskCounter) {
-            System.out.println("Task does not exist :(");
-            System.out.println(DIVIDER);
+            printMessage("Task does not exist :(");
             return;
         }
         taskList.get(taskId - 1).markAsComplete();
-        System.out.print(MESSAGE_ACKNOWLEDGE_MARK_COMMAND + "\n  ");
-        taskList.get(taskId-1).printTask();
-        System.out.println(DIVIDER);
+        printMessage(MESSAGE_ACKNOWLEDGE_MARK_COMMAND + taskList.get(taskId-1).toTaskString());
     }
 
     private static void markAsUndone(int taskId) {
@@ -231,18 +223,19 @@ public class Duck {
             return;
         }
         taskList.get(taskId - 1).markAsIncomplete();
-        System.out.println(MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND);
-        taskList.get(taskId-1).printTask();
-        System.out.println(DIVIDER);
+        printMessage(MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND + taskList.get(taskId-1).toTaskString());
     }
 
     private static void printList() {
-        System.out.println("Here are the tasks in your list:");
+        printMessage("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            taskList.get(i).printTask();
+            System.out.println((i + 1) + ". " + taskList.get(i).toTaskString());
         }
         System.out.println(DIVIDER);
+    }
+
+    private static void printMessage(String message) {
+        Echo.echoText(message);
     }
 
     private static void loadOldFile() throws FileNotFoundException {
@@ -253,8 +246,7 @@ public class Duck {
             outputList += currentLine + "\n";
             parseOldFileEntry(currentLine);
         }
-        System.out.println("loaded old file");
-        System.out.println(DIVIDER);
+        printMessage("Old tasks loaded :)");
     }
 
     private static void parseOldFileEntry(String line) throws FileNotFoundException {
@@ -279,7 +271,7 @@ public class Duck {
             }
             }
         } catch (Exception e) {
-            System.out.println("Error parsing old file: " + line);
+            printMessage("Error parsing old file: " + line);
             throw new FileNotFoundException();
         }
 
@@ -321,13 +313,12 @@ public class Duck {
     private static void updateOutputList() {
         outputList = "";
         for (Task task : taskList) {
-            outputList += task.toString() + "\n";
+            outputList += task.toFileString() + "\n";
         }
     }
 
     private static void printEmptyTodoError() {
-        System.out.println(ERROR_EMPTY_TODO);
-        System.out.println(DIVIDER);
+        printMessage(ERROR_EMPTY_TODO);
     }
 
     private static boolean isExitCommand(String command) {
@@ -335,8 +326,7 @@ public class Duck {
     }
 
     private static void exitProgram() {
-        System.out.println(MESSAGE_EXIT);
-        System.out.println(DIVIDER);
+        printMessage(MESSAGE_EXIT);
         System.exit(0);
     }
 }
