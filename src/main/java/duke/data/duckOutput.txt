@@ -1,4 +1,4 @@
 T | 0 | help
-T | 1 | this
+T | 0 | help
 T | 0 | this
-E | 0 | this lecture | from: start | to: end
+T | 0 | help

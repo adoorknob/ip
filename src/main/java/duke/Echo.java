@@ -1,11 +1,8 @@
 package duke;
 
 public class Echo {
-    static String DIVIDER = "____________________________________________________________";
-
     public static void echoText(String input) {
         printBubbleSaying(input);
-        System.out.println(DIVIDER);
     }
 
     private static void printTalkingDuckWithLeftMargin(int margin) {
