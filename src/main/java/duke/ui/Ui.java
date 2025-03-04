@@ -24,6 +24,7 @@ public class Ui {
 
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
     static final String ERROR_INVALID_COMMAND = "huh :V";
+    static final String ERROR_FILE_NOT_LOADED = "File not loaded :(";
 
     private void printMessage(String message) {
         Echo.echoText(message);
@@ -59,6 +60,14 @@ public class Ui {
         printMessage("Task does not exist :(");
     }
 
+    public void printRandomError() {
+        printMessage("Error executing command");
+    }
+
+    public void printFileLoadError() {
+        printMessage(ERROR_FILE_NOT_LOADED);
+    }
+
     public void printList(TaskList taskList) {
         printMessage("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getTasks().size(); i++) {
@@ -77,10 +86,6 @@ public class Ui {
 
     public void printTaskDeleteAcknowledgement(Task task) {
         printMessage(MESSAGE_ACKNOWLEDGE_DELETE_COMMAND + task.toTaskString());
-    }
-
-    public void printCannotAddTaskError(String input) {
-        printMessage("Error adding task: " + input);
     }
 
     public void printTaskMarkAcknowledgement(Task task) {

@@ -1,4 +1,6 @@
 T | 0 | help
-T | 0 | help
+T | 1 | this
 T | 0 | this
-T | 0 | help
+T | 0 | this
+E | 0 | this | from: fdh | to: f
+D | 0 | fdsaj | by: f

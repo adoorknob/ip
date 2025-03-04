@@ -1,4 +1,4 @@
-package duke.filehandler;
+package duke.storage;
 
 import duke.Duck;
 import duke.exception.InvalidCommandException;
@@ -15,13 +15,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileHandler {
+public class Storage {
     String outputFilePath;
     String outputList = "";
     Ui ui;
     TaskList taskList;
 
-    public FileHandler(String outputFilePath) {
+    public Storage(String outputFilePath) {
         this.outputFilePath = outputFilePath;
         ui = new Ui();
         taskList = new TaskList();
@@ -71,7 +71,13 @@ public class FileHandler {
     private Task addTodoFromOldFile(String oldFileEntry) {
         String[] splitInput = oldFileEntry.split("\\|");
         String title = splitInput[2].trim();
-        return new Todo(title);
+
+        Task newTask = new Todo(title);
+        if (splitInput[1].trim().equals("1")) {
+            newTask.markAsComplete();
+        }
+
+        return newTask;
     }
 
     private Task addDeadlineFromOldFile(String oldFileEntry) {
@@ -79,7 +85,13 @@ public class FileHandler {
         String title = splitInput[2].trim();
         int byDateIndex = splitInput[3].indexOf("by");
         String byDate = splitInput[3].substring(byDateIndex + Duck.BY_COMMAND_BUFFER).trim();
-        return new Deadline(title, byDate);
+
+        Task newTask = new Deadline(title, byDate);
+        if (splitInput[1].trim().equals("1")) {
+            newTask.markAsComplete();
+        }
+
+        return newTask;
     }
 
     private Task addEventFromOldFile(String oldFileEntry) {
@@ -89,7 +101,13 @@ public class FileHandler {
         String fromDateTime = splitInput[3].substring(fromDateTimeIndex + Duck.FROM_COMMAND_BUFFER).trim();
         int toDateTimeIndex = splitInput[4].indexOf("to");
         String toDateTime = splitInput[4].substring(toDateTimeIndex + Duck.TO_COMMAND_BUFFER).trim();
-        return new Event(title, fromDateTime, toDateTime);
+
+        Task newTask = new Event(title, fromDateTime, toDateTime);
+        if (splitInput[1].trim().equals("1")) {
+            newTask.markAsComplete();
+        }
+
+        return newTask;
     }
 
     public void updateFile() throws IOException {
