@@ -31,4 +31,8 @@ public abstract class Task {
     public void markAsIncomplete() {
         this.complete = false;
     }
+
+    public boolean contains(String searchTerm) {
+        return title.toLowerCase().contains(searchTerm.toLowerCase());
+    }
 }
