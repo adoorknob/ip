@@ -17,6 +17,8 @@ public class Ui {
 
     static final String MESSAGE_WELCOME = "Hello! I'm \n" + LOGO + "\n What can I do for you?";
     static final String MESSAGE_EXIT = "bye bye :(";
+    static final String MESSAGE_PRINT_FULL_LIST = "Here are the tasks in your list: ";
+    static final String MESSAGE_PRINT_FILTERED_LIST = "Here are the tasks I've found: ";
     static final String MESSAGE_ACKNOWLEDGE_TASK_ADDED = "Got it. I've added this task: ";
     static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done: ";
     static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet: ";
@@ -25,6 +27,7 @@ public class Ui {
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
     static final String ERROR_INVALID_COMMAND = "huh :V";
     static final String ERROR_FILE_NOT_LOADED = "File not loaded :(";
+    static final String ERROR_DATE_TIME_FORMAT = "Invalid datetime format";
 
     private void printMessage(String message) {
         Echo.echoText(message);
@@ -68,12 +71,24 @@ public class Ui {
         printMessage(ERROR_FILE_NOT_LOADED);
     }
 
-    public void printList(TaskList taskList) {
-        printMessage("Here are the tasks in your list:");
+    public void printDateTimeFormatError(String dateTime) {
+        printMessage(ERROR_DATE_TIME_FORMAT + ": " + dateTime);
+    }
+
+    public void printList(String acknowledgment, TaskList taskList) {
+        printMessage(acknowledgment);
         for (int i = 0; i < taskList.getTasks().size(); i++) {
             System.out.println((i + 1) + ". " + taskList.getTask(i).toTaskString());
         }
         System.out.println(DIVIDER);
+    }
+
+    public void printFullList(TaskList taskList) {
+        printList(MESSAGE_PRINT_FULL_LIST, taskList);
+    }
+
+    public void printFilteredList(TaskList taskList) {
+        printList(MESSAGE_PRINT_FILTERED_LIST, taskList);
     }
 
     public void printTaskCounter(TaskList taskList) {

@@ -15,6 +15,6 @@ public class List extends DuckCommand{
 
     @Override
     public void execute(TaskList taskList) {
-        ui.printList(taskList);
+        ui.printFullList(taskList);
     }
 }

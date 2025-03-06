@@ -10,7 +10,11 @@ import duke.command.changetaskstatus.RemoveTask;
 import duke.command.changetaskstatus.Unmark;
 import duke.exception.InvalidCommandException;
 
-import java.util.ArrayList;
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -19,6 +23,12 @@ import java.util.Scanner;
  */
 
 public class Parser {
+    static String[][] dateTimeFormats = {
+            {"dd/MM/yyyy", "MMM dd yyyy"},
+            {"dd/MM/yyyy HH:mm", "MMM dd yyyy HH:mm"},
+            {"dd/MM/yyyy HH:mm:ss", "MMM dd yyyy HH:mm:ss"},
+            {"dd/MM/yyyy HHmm", "MMM dd yyyy HH:mm"},
+    };
 
     /**
      * Returns the executable command object that corresponds to the user input.
@@ -39,6 +49,7 @@ public class Parser {
 
         return switch (command) {
             case (Duck.COMMAND_LIST) -> new List();
+            case (Duck.COMMAND_FIND) -> new Find(inputWithoutCommand);
             case (Duck.COMMAND_MARK) -> new Mark(inputWithoutCommand);
             case (Duck.COMMAND_UNMARK) -> new Unmark(inputWithoutCommand);
             case (Duck.COMMAND_DELETE) -> new RemoveTask(inputWithoutCommand);
@@ -47,6 +58,30 @@ public class Parser {
             case (Duck.TASK_NAME_EVENT) -> new AddEvent(inputWithoutCommand);
             default -> throw new InvalidCommandException();
         };
+    }
+
+    public static String parseDate(String date) throws DateTimeParseException {
+        for (String[] format : dateTimeFormats) {
+            DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern(format[0]);
+            DateTimeFormatter writeFormatter = DateTimeFormatter.ofPattern(format[1]);
+            try {
+                return LocalDateTime.parse(date, readFormatter).format(writeFormatter);
+            } catch (DateTimeParseException e) {
+                // continue
+            } catch (NullPointerException e) {
+                break;
+            }
+
+            try {
+                return LocalDate.parse(date, readFormatter).format(writeFormatter);
+            } catch (DateTimeParseException e) {
+                // continue
+            } catch (NullPointerException e) {
+                break;
+            }
+        }
+
+        throw new DateTimeParseException("", date, 0);
     }
 
     /**
