@@ -11,6 +11,12 @@ import duke.parser.Parser;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * <h1>Duck, helping you keep your ducks in a row</h1>
+ * Duck is a task manager that takes command line input and prints to standard output a list of your tasks, which you can
+ * create, read, update and write.
+ */
+
 public class Duck {
 
     public static int BY_COMMAND_BUFFER = 4;
@@ -36,6 +42,11 @@ public class Duck {
     private boolean isProgramRunning;
     private final Storage storage;
 
+    /**
+     * Constructs Duck
+     *
+     * @param outputFilePath File path to output file to read from/write to
+     */
     public Duck(String outputFilePath) {
         ui = new Ui();
         taskList = new TaskList();
@@ -51,6 +62,9 @@ public class Duck {
         }
     }
 
+    /**
+     * Runs overall logic of Duck
+     */
     private void runDuck() {
         ui.printWelcomeMessage();
 
@@ -80,6 +94,10 @@ public class Duck {
         }
     }
 
+    /**
+     * Start running Duck
+     * @param args Arguments
+     */
     public static void main(String[] args) {
         new Duck("src/main/java/duke/data/duckOutput.txt").runDuck();
     }

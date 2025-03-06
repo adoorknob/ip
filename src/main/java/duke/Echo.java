@@ -1,10 +1,24 @@
 package duke;
 
+/**
+ * Prints messages to look like a duck is speaking
+ */
+
 public class Echo {
+
+    /**
+     * Echoes text in a bubble
+     * @param input Text to echo
+     */
     public static void echoText(String input) {
         printBubbleSaying(input);
     }
 
+    /**
+     * Prints a duck with a margin on the left
+     *
+     * @param margin Number of spaces in margin
+     */
     private static void printTalkingDuckWithLeftMargin(int margin) {
         for (int i = 0; i < margin; i++) {
             System.out.print(" ");
@@ -20,6 +34,11 @@ public class Echo {
         System.out.println(" (____/");
     }
 
+    /**
+     * Prints a bubble with words in it
+     *
+     * @param input Text to print a bubble around
+     */
     private static void printBubbleSaying(String input) {
         // print top
         System.out.print("  __");

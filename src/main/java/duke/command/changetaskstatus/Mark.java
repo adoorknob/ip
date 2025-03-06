@@ -4,6 +4,10 @@ import duke.Duck;
 import duke.exception.InvalidCommandException;
 import duke.task.TaskList;
 
+/**
+ * Represents the command to mark a task as completed given the taskId.
+ */
+
 public class Mark extends ChangeTaskStatus {
     public Mark(String commandBody) throws InvalidCommandException {
         super(commandBody);

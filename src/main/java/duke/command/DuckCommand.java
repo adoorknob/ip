@@ -5,6 +5,10 @@ import duke.exception.InvalidCommandException;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Generic class to represent all commands in Duck
+ */
+
 public abstract class DuckCommand {
     public String commandName;
     public String commandBody;

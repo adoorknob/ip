@@ -5,6 +5,10 @@ import duke.exception.EmptyTaskNameException;
 import duke.exception.InvalidCommandException;
 import duke.task.TaskList;
 
+/**
+ * Represents the general command to change the status of a task given its taskId. Parses and saves the taskId of the user.
+ */
+
 public abstract class ChangeTaskStatus extends DuckCommand {
     public int taskId;
 
