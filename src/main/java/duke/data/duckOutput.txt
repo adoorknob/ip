@@ -8,3 +8,5 @@ E | 0 | helo | from: Dec 12 1222 14:00 | to: Dec 12 1435 12:44
 D | 0 | help | by: December 12 2003
 D | 0 | testing | by: Dec 23 3554
 D | 0 | hello | by: Dec 23 2334
+T | 0 | Test
+T | 0 | test

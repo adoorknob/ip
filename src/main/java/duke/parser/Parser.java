@@ -39,6 +39,7 @@ public class Parser {
 
         return switch (command) {
             case (Duck.COMMAND_LIST) -> new List();
+            case (Duck.COMMAND_FIND) -> new Find(inputWithoutCommand);
             case (Duck.COMMAND_MARK) -> new Mark(inputWithoutCommand);
             case (Duck.COMMAND_UNMARK) -> new Unmark(inputWithoutCommand);
             case (Duck.COMMAND_DELETE) -> new RemoveTask(inputWithoutCommand);

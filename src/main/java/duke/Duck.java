@@ -18,6 +18,7 @@ public class Duck {
     public static int TO_COMMAND_BUFFER = 4;
 
     public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_DELETE = "delete";
@@ -44,7 +45,7 @@ public class Duck {
 
         try {
             taskList = storage.loadOldFile();
-            ui.printList(taskList);
+            ui.printFullList(taskList);
         } catch (IOException e) {
             ui.printFileLoadError();
             taskList = new TaskList();
