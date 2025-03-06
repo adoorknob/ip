@@ -27,6 +27,7 @@ public class Ui {
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
     static final String ERROR_INVALID_COMMAND = "huh :V";
     static final String ERROR_FILE_NOT_LOADED = "File not loaded :(";
+    static final String ERROR_DATE_TIME_FORMAT = "Invalid datetime format";
 
     private void printMessage(String message) {
         Echo.echoText(message);
@@ -68,6 +69,10 @@ public class Ui {
 
     public void printFileLoadError() {
         printMessage(ERROR_FILE_NOT_LOADED);
+    }
+
+    public void printDateTimeFormatError(String dateTime) {
+        printMessage(ERROR_DATE_TIME_FORMAT + ": " + dateTime);
     }
 
     public void printList(String acknowledgment, TaskList taskList) {
