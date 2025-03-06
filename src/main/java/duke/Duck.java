@@ -75,7 +75,7 @@ public class Duck {
                 ui.printEmptyTaskNameError();
             } catch (Exception e) {
                 ui.printRandomError();
-                System.out.printf(e.getMessage());
+//                System.out.printf(e.getMessage());
             }
         }
     }
