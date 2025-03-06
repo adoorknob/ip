@@ -3,6 +3,10 @@ package duke.command;
 import duke.Duck;
 import duke.task.TaskList;
 
+/**
+ * Represents the command to list the current saved task list.
+ */
+
 public class List extends DuckCommand{
 
     public List() {

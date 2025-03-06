@@ -18,6 +18,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents the parser for user commands.
+ */
+
 public class Parser {
     static String[][] dateTimeFormats = {
             {"dd/MM/yyyy", "MMM dd yyyy"},
@@ -26,6 +30,12 @@ public class Parser {
             {"dd/MM/yyyy HHmm", "MMM dd yyyy HH:mm"},
     };
 
+    /**
+     * Returns the executable command object that corresponds to the user input.
+     *
+     * @return DuckCommand Command object of the specified command class
+     * @throws InvalidCommandException If input is not a valid command
+     */
     public static DuckCommand getCommand() throws InvalidCommandException {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -74,6 +84,12 @@ public class Parser {
         throw new DateTimeParseException("", date, 0);
     }
 
+    /**
+     * Returns if the given string is a valid exit command
+     *
+     * @param command Command name
+     * @return If string is one of the valid exit commands in COMMAND_EXIT_LIST
+     */
     public static boolean isExitCommand(String command) {
         return Duck.COMMAND_EXIT_LIST.contains(command);
     }

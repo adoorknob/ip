@@ -4,6 +4,10 @@ import duke.Duck;
 import duke.exception.InvalidCommandException;
 import duke.task.TaskList;
 
+/**
+ * Represents the command to mark a task as incomplete given the taskId.
+ */
+
 public class Unmark extends ChangeTaskStatus {
     public Unmark(String commandBody) throws InvalidCommandException {
         super(commandBody);
