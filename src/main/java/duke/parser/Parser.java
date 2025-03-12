@@ -26,8 +26,10 @@ public class Parser {
     static String[][] dateTimeFormats = {
             {"dd/MM/yyyy", "MMM dd yyyy"},
             {"dd/MM/yyyy HH:mm", "MMM dd yyyy HH:mm"},
-            {"dd/MM/yyyy HH:mm:ss", "MMM dd yyyy HH:mm:ss"},
             {"dd/MM/yyyy HHmm", "MMM dd yyyy HH:mm"},
+            {"dd/MM/yy", "MMM dd yyyy"},
+            {"dd/MM/yy HH:mm", "MMM dd yyyy HH:mm"},
+            {"dd/MM/yy HHmm", "MMM dd yyyy HH:mm"},
     };
 
     /**

@@ -18,6 +18,8 @@ import java.util.*;
  */
 
 public class Duck {
+    String jarFilePath = "../../production/ip/duke/data/duckOutput.txt";
+    static String codeFilePath = "./src/main/java/duke/data/duckOutput.txt";
 
     public static int BY_COMMAND_BUFFER = 4;
     public static int FROM_COMMAND_BUFFER = 6;
@@ -59,6 +61,7 @@ public class Duck {
             ui.printFullList(taskList);
         } catch (IOException e) {
             ui.printFileLoadError();
+            System.out.printf("Error: %s\n", e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -100,6 +103,6 @@ public class Duck {
      * @param args Arguments
      */
     public static void main(String[] args) {
-        new Duck("src/main/java/duke/data/duckOutput.txt").runDuck();
+        new Duck(codeFilePath).runDuck();
     }
 }
