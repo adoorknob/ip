@@ -8,7 +8,8 @@ Duck is a **desktop app for managing tasks, optimised for use via a Command Line
 ## Features
 <details>
 
-<summary>Some notes</summary>
+<summary><strong>Some notes</strong></summary>
+<div markdown="1">
 
 ### Syntax within this document
 
@@ -28,7 +29,7 @@ The following are the accepted formats:
 - `HH:mm`
 - `HHmm`
 
-
+</div>
 </details>
 
 ---
