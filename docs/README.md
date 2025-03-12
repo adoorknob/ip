@@ -2,12 +2,8 @@
 
 ![image](./productScreenshot.png)
 
-An all-in-one tool to keep your ducks in a line :V/
+An all-in-one tool to keep your ducks in a line :V </br>
 Duck is a **desktop app for managing tasks, optimised for use via a Command Line Interface** (CLI)
-
-```
-expected output
-```
 
 ## Features
 <details>
@@ -15,10 +11,12 @@ expected output
 <summary>Some notes</summary>
 
 ### Syntax within this document
+
 Parameters for a command are labelled in ALL_CAPS (e.g., `todo NAME`), which can be replaced with whatever the user deems fit (`todo urmom`).
 Optional parameters are surrounded by square brackets `[]` (e.g., `[TIME]`).
 
 ### Datetime formats
+
 For `deadline` and `event` that take in datetime arguments in the general form: `DATE [TIME]`.\
 The following are the accepted formats:
 
@@ -30,8 +28,10 @@ The following are the accepted formats:
 - `HH:mm`
 - `HHmm`
 
+
 </details>
 
+---
 ### Listing tasks: `list`
 Displays the current working task list. Additional arguments (e.g., `urmom` in `list urmom`) will be ignored.
 
@@ -54,7 +54,7 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-
+---
 ### Adding tasks
 
 #### Adding todos: `todo NAME`
@@ -117,7 +117,7 @@ Example: `event making tasklist /from 12/03/25 09:00 /to 12/03/25 11:00`
 ____________________________________________________________
 ```
 
-
+---
 ### Removing tasks: `delete TASK_ID`
 Removes task at index `TASK_ID` from the list. 
 
@@ -160,7 +160,7 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-
+---
 ### Marking task status
 
 #### Marking tasks as done: `mark TASK_ID`
@@ -226,7 +226,7 @@ ____________________________________________________________
 2. [E][ ] making tasklist (from: Mar 12 2025 09:00, to: Mar 12 2025 11:00)
 ____________________________________________________________
 ```
-
+---
 ### Finding tasks: `find SEARCHTERM`
 Displays a sublist of tasks that contain `SEARCHTERM`.
 
@@ -264,7 +264,7 @@ ____________________________________________________________
 1. [E][ ] making tasklist (from: Mar 12 2025 09:00, to: Mar 12 2025 11:00)
 ____________________________________________________________
 ```
-
+---
 ### Exiting program: `bye`
 Ends the program. The following are also accepted commands to exit the program:
 - `quit`
@@ -284,7 +284,7 @@ Example: `bye`
            (____/
 ____________________________________________________________
 ```
-
+---
 ### Saving task list 
 The task list from previous sessions is stored and read for subsequent sessions. 
 On reload of the application, the previous task list will be rehashed for current use.
