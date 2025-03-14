@@ -18,7 +18,7 @@ import java.util.*;
  */
 
 public class Duck {
-    String jarFilePath = "../../production/ip/duke/data/duckOutput.txt";
+    static String jarFilePath = "../../production/ip/duke/data/duckOutput.txt";
     static String codeFilePath = "./src/main/java/duke/data/duckOutput.txt";
 
     public static int BY_COMMAND_BUFFER = 4;
