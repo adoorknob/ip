@@ -288,6 +288,12 @@ ____________________________________________________________
 ---
 ### Saving task list 
 The task list from previous sessions is stored and read for subsequent sessions. 
+
+If executing as a `.jar` file, please ensure `"../../production/ip/duke/data/duckOutput.txt"` exists.
+If executing from source code, please ensure `"./src/main/java/duke/data/duckOutput.txt"` exists.
+
+    
+
 On reload of the application, the previous task list will be rehashed for current use.
 
 ```
