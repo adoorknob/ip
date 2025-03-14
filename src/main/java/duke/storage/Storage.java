@@ -43,13 +43,21 @@ public class Storage {
      */
     public TaskList loadOldFile() throws FileNotFoundException {
         File f = new File(outputFilePath);
+        try {
+            if (f.createNewFile()) {
+                ui.printFileCreated(outputFilePath);
+            } else {
+                ui.printFileLoadedMessage();
+            }
+        } catch (IOException e) {
+            throw new FileNotFoundException();
+        }
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
             outputList += currentLine + "\n";
             parseOldFileEntry(currentLine);
         }
-        ui.printFileLoadedMessage();
         return taskList;
     }
 

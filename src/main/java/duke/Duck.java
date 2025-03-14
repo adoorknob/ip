@@ -18,9 +18,6 @@ import java.util.*;
  */
 
 public class Duck {
-    static String jarFilePath = "../../production/ip/duke/data/duckOutput.txt";
-    static String codeFilePath = "./src/main/java/duke/data/duckOutput.txt";
-
     public static int BY_COMMAND_BUFFER = 4;
     public static int FROM_COMMAND_BUFFER = 6;
     public static int TO_COMMAND_BUFFER = 4;
@@ -103,6 +100,6 @@ public class Duck {
      * @param args Arguments
      */
     public static void main(String[] args) {
-        new Duck(codeFilePath).runDuck();
+        new Duck("./duckOutput.txt").runDuck();
     }
 }

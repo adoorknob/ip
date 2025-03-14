@@ -23,6 +23,7 @@ public class Ui {
     static final String MESSAGE_ACKNOWLEDGE_MARK_COMMAND = "Nice! I've marked this task as done: ";
     static final String MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND = "Ok, I've marked this task as not done yet: ";
     static final String MESSAGE_ACKNOWLEDGE_DELETE_COMMAND = "I've deleted this task: ";
+    static final String MESSAGE_FILE_CREATED = "File created: ";
 
     static final String ERROR_EMPTY_TODO = "u doing nothing ah :/";
     static final String ERROR_INVALID_COMMAND = "huh :V";
@@ -109,5 +110,9 @@ public class Ui {
 
     public void printTaskUnmarkAcknowledgement(Task task) {
         printMessage(MESSAGE_ACKNOWLEDGE_UNMARK_COMMAND + task.toTaskString());
+    }
+
+    public void printFileCreated(String outputFilePath) {
+        System.out.println(MESSAGE_FILE_CREATED + outputFilePath);
     }
 }
