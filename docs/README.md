@@ -294,7 +294,7 @@ If executing from source code, please ensure `"./src/main/java/duke/data/duckOut
 
     
 
-On reload of the application, the previous task list will be rehashed for current use.
+On rerun of the application, the previous task list will be reloaded for current use.
 
 ```
   _______________________  
